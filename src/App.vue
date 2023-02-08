@@ -6,6 +6,7 @@
 </template>
 
 <script>
+let a =100
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
