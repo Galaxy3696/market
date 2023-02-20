@@ -1,5 +1,5 @@
 import requests from "./request";
 
 export const reqCategoryList=()=>{
-    requests({url:"/product/getBaseCategoryList",method:"get"})
+    return requests({url:"/product/getBaseCategoryList",method:"get"})
 }
