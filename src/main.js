@@ -5,6 +5,7 @@ import store from './store';
 Vue.config.productionTip = false
 //三级联动全局组件
 import TypeNav from '@/components/TypeNav'
+import '@/mock/mockServe'
 Vue.component(TypeNav.name,TypeNav)
 
 import {reqCategoryList} from '@/apis/index'

@@ -1,7 +1,8 @@
-import { reqCategoryList } from "@/apis"
+import { reqCategoryList,reqBannerList } from "@/apis"
 import requests from "@/apis/request"
 const state={
     categoryList:[],
+    bannerList:[]
 }
 const mutations={
     CATEGORYLIST(state,categoryList){
@@ -14,7 +15,15 @@ const actions={
        if (result.code == 200){
             commit("CATEGORYLIST",result.data)
         }
-    }
+    },
+
+    async bannerList({commit}){
+        let result = await reqBannerList()
+        console.log(res)
+        // if (result.code == 200){
+        //      commit("CATEGORYLIST",result.data)
+        //  }
+     }
 }
 const getters={}
 export default{

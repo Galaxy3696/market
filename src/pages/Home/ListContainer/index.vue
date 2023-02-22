@@ -111,7 +111,10 @@
 
 <script>
 export default {
-
+    name:"",
+    mounted(){
+        this.$store.dispatch("bannerList")
+    }
 }
 </script>
 

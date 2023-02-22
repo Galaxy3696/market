@@ -1,6 +1,6 @@
 <template>
     <div class="type-nav">
-        <div class="container">
+        <div class="container" @mouseenter="show" @mouseleave="hide">
             <h2 class="all">全部商品分类</h2>
             <nav class="nav">
                 <a href="###">服装城</a>
@@ -12,7 +12,8 @@
                 <a href="###">有趣</a>
                 <a href="###">秒杀</a>
             </nav>
-            <div class="sort">
+            <transition name="sort">
+                <div class="sort" v-show="showsort" >
                 <div class="all-sort-list2" @click="goSearch">
                     <div class="item" v-for="(c1) in categoryList" :key="c1.categoryId">
                         <h3>
@@ -36,6 +37,7 @@
 
                 </div>
             </div>
+            </transition>
         </div>
     </div>
 </template>
@@ -46,6 +48,15 @@ export default {
     name: "TypeNav",
     mounted(){
        this.$store.dispatch("categoryList")
+       if(this.$route.path!='/home')
+            {
+                this.showsort=false
+            }
+    },
+    data(){
+        return{
+            showsort:true,
+        }
     },
     computed:{
         ...mapState({
@@ -78,7 +89,19 @@ export default {
             location.query=query
             console.log(location)
             this.$router.push(location)
-        }
+        },
+        show(){
+            if(this.$route.path!='/home')
+            {
+                this.showsort=true
+            }
+        },       
+        hide(){
+            if(this.$route.path!='/home')
+            {
+                this.showsort=false
+            }
+        }                                                            
     }
 }
 
@@ -203,6 +226,15 @@ export default {
                     }
                 }
             }
+        }
+        .sort-enter{
+            height: 0px;
+        }
+        .sort-enter-to{
+            height: 461px;
+        }
+        .sort-enter-active{
+            transition: all .5s linear;
         }
     }
 }
