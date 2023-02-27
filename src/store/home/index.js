@@ -7,6 +7,9 @@ const state={
 const mutations={
     CATEGORYLIST(state,categoryList){
         state.categoryList=categoryList
+    },
+    BANNERLIST(state,bannerList){
+        state.bannerList=bannerList
     }
 }
 const actions={
@@ -19,10 +22,9 @@ const actions={
 
     async bannerList({commit}){
         let result = await reqBannerList()
-        console.log(res)
-        // if (result.code == 200){
-        //      commit("CATEGORYLIST",result.data)
-        //  }
+        if (result.code == 200){
+             commit("BANNERLIST",result.data)
+         }
      }
 }
 const getters={}
