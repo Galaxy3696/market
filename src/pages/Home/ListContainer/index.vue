@@ -16,7 +16,7 @@
                     <!-- 如果需要导航按钮 -->
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-button-next"></div>
-                </div> 
+                </div>
             </div>
             <div class="right">
                 <div class="news">
@@ -114,24 +114,30 @@ export default {
             bannerList: state => state.home.bannerList
         })
     },
-    updated() {
-        var mySwiper = new Swiper('.swiper-container', {
-            loop: true, // 循环模式选项
+    watch: {
+        bannerList: {
+            handler(newvalue, oldvalue) {
+                this.$nextTick(() => {
+                    var mySwiper = new Swiper('.swiper-container', {
+                        loop: true, // 循环模式选项
 
-            // 如果需要分页器
-            pagination: {
-                el: '.swiper-pagination',
-                clickable:true
-            },
+                        // 如果需要分页器
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true
+                        },
 
-            // 如果需要前进后退按钮
-            navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-            },
+                        // 如果需要前进后退按钮
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
 
-        })
-    },
+                    })
+                })
+            }
+        }
+    }
 }
 </script>
 

@@ -7,3 +7,7 @@ export const reqCategoryList=()=>{
 export const reqBannerList=()=>{
     return mockRequests({url:"/banner",method:"get"})
 }
+
+export const reqFloorList=()=>{
+    return mockRequests({url:"/floor",method:"get"})
+}
