@@ -8,8 +8,6 @@ import TypeNav from '@/components/TypeNav'
 import '@/mock/mockServe'
 Vue.component(TypeNav.name,TypeNav)
 
-import {reqCategoryList} from '@/apis/index'
-// reqCategoryList()
 import "swiper/css/swiper.css"
 new Vue({
   render: h => h(App),
