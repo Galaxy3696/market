@@ -8,6 +8,8 @@ import TypeNav from '@/components/TypeNav'
 import '@/mock/mockServe'
 Vue.component(TypeNav.name,TypeNav)
 
+// import {reqGetSearchInfo} from '@/apis/index'
+// console.log(reqGetSearchInfo({}))
 import "swiper/css/swiper.css"
 new Vue({
   render: h => h(App),
