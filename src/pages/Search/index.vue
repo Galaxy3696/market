@@ -11,7 +11,12 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x" v-if="searchParams.categoryName">{{ searchParams.categoryName }}</li>
+            <li class="with-x" v-if="searchParams.categoryName">{{ searchParams.categoryName }}
+              <i @click="removeCategoryName">x</i>
+            </li>
+            <li class="with-x" v-show="searchParams.keyword">
+              {{ searchParams.keyword }}<i @click="removeKeyword">x</i>
+            </li>
           </ul>
         </div>
 
@@ -121,8 +126,8 @@ export default {
   data() {
     return {
       searchParams: {
-        category1Id:"",
-        category2Id:"",
+        category1Id: "",
+        category2Id: "",
         category3Id: "",
         categoryName: "",
         keyword: "",
@@ -134,8 +139,8 @@ export default {
       }
     }
   },
-  beforeMount(){
-    Object.assign(this.searchParams,this.$route.query,this.$route.params)
+  beforeMount() {
+    Object.assign(this.searchParams, this.$route.query, this.$route.params)
   },
   mounted() {
     this.getData()
@@ -143,7 +148,25 @@ export default {
   methods: {
     getData() {
       this.$store.dispatch("getSearchInfo", this.searchParams)
-     }
+    },
+    removeCategoryName() {
+      this.searchParams.categoryName = undefined
+      this.searchParams.category1Id = undefined
+      this.searchParams.category2Id = undefined
+      this.searchParams.category3Id = undefined
+      this.getData()
+    },
+    removeKeyword() {
+      //清空关键字
+      this.searchParams.keyword = "";
+      //修改URL
+      this.getData()
+      this.$router.push({ name: "search", query: this.$route.query });
+      //通知兄弟组件清除关键字
+      this.$bus.$emit("clearKeyword");
+  
+      //为什么这里没有调用发请求函数？
+    },
   },
   computed: {
     ...mapState({
@@ -170,6 +193,7 @@ export default {
       Object.assign(this.searchParams, this.$route.query, this.$route.params);
       //再次发请求
       this.getData();
+      this.$router.push({ name: "search" })
     },
   },
 }
