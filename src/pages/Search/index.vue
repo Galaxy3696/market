@@ -177,6 +177,7 @@ export default {
       this.searchParams.order = newOrder;
       //重新发一次请求
       this.getData();
+      console.log(this.searchParams.order)
     },
   },
   computed: {
