@@ -13,30 +13,33 @@
                 <a href="###">秒杀</a>
             </nav>
             <transition name="sort">
-                <div class="sort" v-show="showsort" >
-                <div class="all-sort-list2" @click="goSearch">
-                    <div class="item" v-for="(c1) in categoryList" :key="c1.categoryId">
-                        <h3>
-                            <a :data-categoryname="c1.categoryName" :data-category1Id="c1.categoryId">{{ c1.categoryName }}</a>
-                        </h3>  
-                        <div class="item-list clearfix">
-                            <div class="subitem" v-for="(c2) in c1.categoryChild" :key="c2.categoryId">
-                                <dl class="fore">
-                                    <dt>
-                                        <a :data-categoryname="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
-                                    </dt>
-                                    <dd>
-                                        <em v-for="(c3) in c2.categoryChild" :key="c3.categoryId">
-                                            <a :data-categoryname="c3.categoryName"  :data-category3Id="c3.categoryId">{{ c3.categoryName}}</a>
-                                        </em>
-                                    </dd>
-                                </dl>
+                <div class="sort" v-show="showsort">
+                    <div class="all-sort-list2" @click="goSearch">
+                        <div class="item" v-for="(c1) in categoryList" :key="c1.categoryId">
+                            <h3>
+                                <a :data-categoryname="c1.categoryName" :data-category1Id="c1.categoryId">{{ c1.categoryName
+                                }}</a>
+                            </h3>
+                            <div class="item-list clearfix">
+                                <div class="subitem" v-for="(c2) in c1.categoryChild" :key="c2.categoryId">
+                                    <dl class="fore">
+                                        <dt>
+                                            <a :data-categoryname="c2.categoryName"
+                                                :data-category2Id="c2.categoryId">{{ c2.categoryName }}</a>
+                                        </dt>
+                                        <dd>
+                                            <em v-for="(c3) in c2.categoryChild" :key="c3.categoryId">
+                                                <a :data-categoryname="c3.categoryName" :data-category3Id="c3.categoryId">{{
+                                                    c3.categoryName }}</a>
+                                            </em>
+                                        </dd>
+                                    </dl>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
             </transition>
         </div>
     </div>
@@ -46,62 +49,57 @@
 import { mapState } from 'vuex'
 export default {
     name: "TypeNav",
-    mounted(){
-       this.$store.dispatch("categoryList")
-       if(this.$route.path!='/home')
-            {
-                this.showsort=false
-            }
-    },
-    data(){
-        return{
-            showsort:true,
+    mounted() {
+        this.$store.dispatch("categoryList")
+        if (this.$route.path != '/home') {
+            this.showsort = false
         }
     },
-    computed:{
+    data() {
+        return {
+            showsort: true,
+        }
+    },
+    computed: {
         ...mapState({
-            categoryList:state=>state.home.categoryList
+            categoryList: state => state.home.categoryList
         })
     },
-    methods:{
-        goSearch(event){
+    methods: {
+        goSearch(event) {
             let element = event.target
             // console.log(element)
-            let {categoryname,category1id,category2id,category3id} = element.dataset
-            console.log(categoryname,category1id,category2id,category3id)
-            let location = {name:"search"}
-            let query = {categoryName:categoryname}
-            if(categoryname)
-            {
-                if(category1id)
-                {
-                    query.category1Id=category1id
+            let { categoryname, category1id, category2id, category3id } = element.dataset
+            console.log(categoryname, category1id, category2id, category3id)
+            let location = { name: "search" }
+            let query = { categoryName: categoryname }
+            if (categoryname) {
+                if (category1id) {
+                    query.category1Id = category1id
                 }
-                if(category2id)
-                {
-                    query.category2Id=category2id
+                if (category2id) {
+                    query.category2Id = category2id
                 }
-                if(category3id)
-                {
-                    query.category3Id=category3id
+                if (category3id) {
+                    query.category3Id = category3id
+                }
+                if (this.$route.params) {
+                    location.query = query
+                    location.params=this.$route.params
+                    this.$router.push(location)
                 }
             }
-            location.query=query
-            console.log(location)
-            this.$router.push(location)
         },
-        show(){
-            if(this.$route.path!='/home')
-            {
-                this.showsort=true
+        show() {
+            if (this.$route.path != '/home') {
+                this.showsort = true
             }
-        },       
-        hide(){
-            if(this.$route.path!='/home')
-            {
-                this.showsort=false
+        },
+        hide() {
+            if (this.$route.path != '/home') {
+                this.showsort = false
             }
-        }                                                            
+        }
     }
 }
 
@@ -162,9 +160,11 @@ export default {
                             color: #333;
                         }
                     }
-                    h3:hover{
+
+                    h3:hover {
                         background-color: skyblue;
                     }
+
                     .item-list {
                         display: none;
                         position: absolute;
@@ -227,13 +227,16 @@ export default {
                 }
             }
         }
-        .sort-enter{
+
+        .sort-enter {
             height: 0px;
         }
-        .sort-enter-to{
+
+        .sort-enter-to {
             height: 461px;
         }
-        .sort-enter-active{
+
+        .sort-enter-active {
             transition: all .5s linear;
         }
     }

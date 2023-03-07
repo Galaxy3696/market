@@ -11,10 +11,7 @@
             </li>
           </ul>
           <ul class="fl sui-tag">
-            <li class="with-x">手机</li>
-            <li class="with-x">iphone<i>×</i></li>
-            <li class="with-x">华为<i>×</i></li>
-            <li class="with-x">OPPO<i>×</i></li>
+            <li class="with-x" v-if="searchParams.categoryName">{{ searchParams.categoryName }}</li>
           </ul>
         </div>
 
@@ -146,13 +143,35 @@ export default {
   methods: {
     getData() {
       this.$store.dispatch("getSearchInfo", this.searchParams)
-    }
+     }
   },
   computed: {
     ...mapState({
       goodslist: state => state.search.searchlist.goodsList || []
     })
-  }
+  },
+  watch: {
+    //监听组件VC的$route属性
+    //$route:{},应该用深度监听呀?
+    //$route，是vue-router提供的
+    $route() {
+      //再次整理最新的商品名字参数
+      // this.searchParams.category1Id = this.$route.query.category1Id;
+      // this.searchParams.category2Id = this.$route.query.category2Id;
+      // this.searchParams.category3Id = this.$route.query.category3Id;
+      // this.searchParams.categoryName = this.$route.query.categoryName;
+
+      //先把用户前面存储的1|2|3级别ID清除
+      //发ajax的时候,属性值为undefind,甚至参数K都不携带了【10个搜索条件,可有可无的】
+      this.searchParams.category1Id = undefined;
+      this.searchParams.category2Id = undefined;
+      this.searchParams.category3Id = undefined;
+      //路由变化整理参数：手机最新的商品名字、商品1|2|3ID
+      Object.assign(this.searchParams, this.$route.query, this.$route.params);
+      //再次发请求
+      this.getData();
+    },
+  },
 }
 </script>
 

@@ -9,6 +9,7 @@ import Register from '@/pages/Register'
 export default new VueRouter({
     routes:[
          {
+            name:"home",
             path:'/home',
             component:Home,
             meta:{show:true},
