@@ -27,24 +27,17 @@
         <div class="details clearfix">
           <div class="sui-navbar">
             <div class="navbar-inner filter">
+              <!-- 综合|价格排序的地方 -->
               <ul class="sui-nav">
-                <li class="active">
-                  <a href="#">综合</a>
+                <li :class="{ active: isOne }">
+                  <a>综合
+                    <span v-show="isOne" class="iconfont"
+                      :class="{ 'icon-Down': isDesc, 'icon-up': isAsc } " @click="sort(1)"></span></a>
                 </li>
-                <li>
-                  <a href="#">销量</a>
-                </li>
-                <li>
-                  <a href="#">新品</a>
-                </li>
-                <li>
-                  <a href="#">评价</a>
-                </li>
-                <li>
-                  <a href="#">价格⬆</a>
-                </li>
-                <li>
-                  <a href="#">价格⬇</a>
+                <li :class="{ active: isTwo }" >
+                  <a>价格
+                    <span v-show="isTwo" class="iconfont"
+                      :class="{ 'icon-Down': isDesc, 'icon-up': isAsc }" @click="sort(2)"></span></a>
                 </li>
               </ul>
             </div>
@@ -131,7 +124,7 @@ export default {
         category3Id: "",
         categoryName: "",
         keyword: "",
-        order: "",
+        order: "2:desc",
         pageNo: 1,
         pageSize: 10,
         props: [],
@@ -164,14 +157,44 @@ export default {
       this.$router.push({ name: "search", query: this.$route.query });
       //通知兄弟组件清除关键字
       this.$bus.$emit("clearKeyword");
-  
+
       //为什么这里没有调用发请求函数？
+    },
+    sort(flag) {
+      //获取每一次order初始值,与用户点击传递进来的flag进行判断
+      let originFlag = this.searchParams.order.split(":")[0];
+      let originSortType = this.searchParams.order.split(":")[1];
+      //准备一个新的数值，将来赋值给order
+      let newOrder = "";
+      //高亮的判断
+      if (flag == originFlag) {
+        newOrder = `${originFlag}:${originSortType == "desc" ? "asc" : "desc"}`;
+      } else {
+        //不是高亮的按钮
+        newOrder = `${flag}:desc`;
+      }
+      //重新给order赋予新的数值
+      this.searchParams.order = newOrder;
+      //重新发一次请求
+      this.getData();
     },
   },
   computed: {
     ...mapState({
       goodslist: state => state.search.searchlist.goodsList || []
-    })
+    }),
+    isOne() {
+      return this.searchParams.order.indexOf("1") != -1;
+    },
+    isTwo() {
+      return this.searchParams.order.indexOf("2") != -1;
+    },
+    isDesc() {
+      return this.searchParams.order.indexOf("desc") != -1;
+    },
+    isAsc() {
+      return this.searchParams.order.indexOf("asc") != -1;
+    },
   },
   watch: {
     //监听组件VC的$route属性
