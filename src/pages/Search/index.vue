@@ -71,7 +71,7 @@
               </li>
             </ul>
           </div>
-          <div class="fr page">
+          <!-- <div class="fr page">
             <div class="sui-pagination clearfix">
               <ul>
                 <li class="prev disabled">
@@ -99,7 +99,13 @@
               </ul>
               <div><span>共10页&nbsp;</span></div>
             </div>
-          </div>
+          </div> -->
+          <Pagination  
+              :total="total"
+              :pageSize="searchParams.pageSize"
+              :pageNo="searchParams.pageNo"
+              :pagerCount="5"
+              @currentPage="currentPage"></Pagination>
         </div>
       </div>
     </div>
@@ -141,6 +147,7 @@ export default {
   methods: {
     getData() {
       this.$store.dispatch("getSearchInfo", this.searchParams)
+      // console.log(this.state.search.data)
     },
     removeCategoryName() {
       this.searchParams.categoryName = undefined
@@ -179,11 +186,23 @@ export default {
       this.getData();
       console.log(this.searchParams.order)
     },
+    currentPage(pageNo) {
+      //父组件整理参数
+      this.searchParams.pageNo = pageNo;
+      this.getData();
+    },
   },
   computed: {
     ...mapState({
-      goodslist: state => state.search.searchlist.goodsList || []
+      goodslist: state => state.search.searchlist.goodsList || [],
     }),
+    total(){//?为什么用...mapState不行？
+      // console.log();
+      return this.$store.state.search.searchlist.total
+    },
+    // ...mapState({
+    //   total:state=>state.search.searchList.total,
+    // }),
     isOne() {
       return this.searchParams.order.indexOf("1") != -1;
     },

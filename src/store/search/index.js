@@ -4,7 +4,6 @@ const state={
 }
 const mutations={
     GETSEARCHLIST(state,searchlist){
-        console.log(111111111)
         state.searchlist=searchlist
     }
 }
