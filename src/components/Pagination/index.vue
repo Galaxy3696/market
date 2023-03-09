@@ -7,7 +7,7 @@
     <button v-if="startAndEnd.start > 2">.....</button>
 
     <!-- 中间连续页码的地方:v-for、数组、对象、数字、字符串 -->
-    <button v-for="page in startAndEnd.end" :key="page" v-if="page >= startAndEnd.start" @click="$emit('currentPage',page)" :class="{active:pageNo==page}">{{ page }}</button>
+    <!-- <button v-for="page in startAndEnd.end" :key="page" v-if="page >= startAndEnd.start" @click="$emit('currentPage',page)" :class="{active:pageNo==page}">{{ page }}</button> -->
 
     <button v-if="startAndEnd.end < totalPage - 1 ">......</button>
     <button v-if="startAndEnd.end < totalPage" @click="$emit('currentPage',totalPage)">{{ totalPage }}</button>

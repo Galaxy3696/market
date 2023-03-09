@@ -31,13 +31,13 @@
               <ul class="sui-nav">
                 <li :class="{ active: isOne }">
                   <a>综合
-                    <span v-show="isOne" class="iconfont"
-                      :class="{ 'icon-Down': isDesc, 'icon-up': isAsc } " @click="sort(1)"></span></a>
+                    <span v-show="isOne" class="iconfont" :class="{ 'icon-Down': isDesc, 'icon-up': isAsc }"
+                      @click="sort(1)"></span></a>
                 </li>
-                <li :class="{ active: isTwo }" >
+                <li :class="{ active: isTwo }">
                   <a>价格
-                    <span v-show="isTwo" class="iconfont"
-                      :class="{ 'icon-Down': isDesc, 'icon-up': isAsc }" @click="sort(2)"></span></a>
+                    <span v-show="isTwo" class="iconfont" :class="{ 'icon-Down': isDesc, 'icon-up': isAsc }"
+                      @click="sort(2)"></span></a>
                 </li>
               </ul>
             </div>
@@ -47,7 +47,13 @@
               <li class="yui3-u-1-5" v-for="good in goodslist" :key="good.id">
                 <div class="list-wrap">
                   <div class="p-img">
-                    <a href="item.html" target="_blank"><img :src="good.defaultImg" /></a>
+
+                    <router-link :to="`/detail/${good.id}`">
+                      <img :src="good.defaultImg" />
+                    </router-link>
+                      
+                  
+                      
                   </div>
                   <div class="price">
                     <strong>
@@ -71,41 +77,8 @@
               </li>
             </ul>
           </div>
-          <!-- <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div> -->
-          <Pagination  
-              :total="total"
-              :pageSize="searchParams.pageSize"
-              :pageNo="searchParams.pageNo"
-              :pagerCount="5"
-              @currentPage="currentPage"></Pagination>
+          <Pagination :total="total" :pageSize="searchParams.pageSize" :pageNo="searchParams.pageNo" :pagerCount="5"
+            @currentPage="currentPage"></Pagination>
         </div>
       </div>
     </div>
@@ -196,7 +169,7 @@ export default {
     ...mapState({
       goodslist: state => state.search.searchlist.goodsList || [],
     }),
-    total(){//?为什么用...mapState不行？
+    total() {//?为什么用...mapState不行？
       // console.log();
       return this.$store.state.search.searchlist.total
     },
