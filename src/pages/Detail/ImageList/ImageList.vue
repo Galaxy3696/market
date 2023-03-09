@@ -1,8 +1,8 @@
 <template>
   <div class="swiper-container">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="../images/s1.png">
+      <div class="swiper-slide" v-for="silde in skuImageList" :key="silde.id">
+        <img :src="silde.imgUrl">
       </div>
     </div>
     <div class="swiper-button-next"></div>
@@ -15,6 +15,30 @@
   import Swiper from 'swiper'
   export default {
     name: "ImageList",
+    props:["skuImageList"],
+    watch:{
+      skuImageList(newValue,oldValue)
+      {
+        this.$nextTick(()=>{
+          var mySwiper = new Swiper('.swiper-container', {
+                        loop: true, // 循环模式选项
+
+                        // 如果需要分页器
+                        // pagination: {
+                        //     el: '.swiper-pagination',
+                        //     clickable: true
+                        // },
+
+                        // 如果需要前进后退按钮
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        slidesPerView : 3
+                    })
+        })
+      }
+    }
   }
 </script>
 
