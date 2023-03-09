@@ -40,13 +40,13 @@ let actions = {
 //项目中仓库的getters为了简化数据而生【组件获取数据更加方便】
 let getters = {
     //  //面包屑的数据
-    //  categoryView(state) {
-    //       //研究这个问题:
-    //       //起始状态:state.detailInfo起始状态空对象,空对象.categoryView->undefined
-    //       //当服务器数据回来之后state.detailInfo,并非空对象,获取的即为服务器返回的数据{7个K}
-    //       //当前属性值:服务器的数据有值，用服务器的。服务器数据没有回来至少有一个空对象兜底【不能undefined兜底】
-    //       return state.detailInfo.categoryView || {}
-    //  },
+     // categoryView(state) {
+     //      //研究这个问题:
+     //      //起始状态:state.detailInfo起始状态空对象,空对象.categoryView->undefined
+     //      //当服务器数据回来之后state.detailInfo,并非空对象,获取的即为服务器返回的数据{7个K}
+     //      //当前属性值:服务器的数据有值，用服务器的。服务器数据没有回来至少有一个空对象兜底【不能undefined兜底】
+     //      return state.detail.detailInfo.categoryView || {}
+     // },
     //  //商品信息的数据
     //  skuInfo() {
     //       return state.detailInfo.skuInfo || {}
