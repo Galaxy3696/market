@@ -388,10 +388,9 @@
         //浏览器存储功能，在路由跳转在之前，存储到浏览器中
         sessionStorage.setItem('SKUINFO',JSON.stringify(this.skuInfo));
         //路由跳转
-        console.log(11111111)
         this.$router.push({
           name: "addcartsuccess",
-          // query: { skuNum: this.skuNum},
+          query: { skuNum: this.skuNum},
         });
       } catch (error) {
         //失败干什么

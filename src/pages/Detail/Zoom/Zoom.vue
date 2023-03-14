@@ -43,12 +43,6 @@ export default {
 </script>
 
 <style lang="less">
-
-
-
-
-
-
 .spec-preview {
   position: relative;
   width: 400px;
