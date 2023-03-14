@@ -1,8 +1,10 @@
 //detail模块的小仓库
 import { reqDetailList,reqAddOrUpdateCart} from '@/apis';
+import { getUUID } from '@/utils/uuid_tokens';
 let state = {
      //商品详情的数据
-     detailInfo: {}
+     detailInfo: {},
+     uuid_tokens:getUUID(),
 };
 let mutations = {
      GETDETAILINFO(state, detailInfo) {

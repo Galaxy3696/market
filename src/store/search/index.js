@@ -1,4 +1,5 @@
 import { reqGetSearchInfo } from "@/apis"
+import { getUUID } from "@/utils/uuid_tokens"
 const state={
     searchlist:{},
 }

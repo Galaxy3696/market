@@ -118,6 +118,11 @@
 <script>
   export default {
     name: 'ShopCart',
+    methods:{
+      getData(){
+        this.$store.dispatch("")
+      }
+    }
   }
 </script>
 
